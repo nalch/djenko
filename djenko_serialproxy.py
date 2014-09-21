@@ -5,12 +5,12 @@ import time
 import serial
 
 # Configurations
-ping_server = 2
+ping_server = 5
 jenkins_jobs=['testtask']
 ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 # Arduino Configuration
-SUCCESS = 'b'
+SUCCESS = 'g'
 FAILURE = 'r'
 BUILDING = 'a'
 UNSTABLE = 'y'
@@ -37,12 +37,14 @@ def get_status(jobName):
 while 1:
     for job in jenkins_jobs:
         status = get_status(job)
-#        print job, status[0], status[2]
+        print job, status[0], status[2]
         if status[2] == "UNSTABLE":
             ser.write(UNSTABLE)
         elif status[2] == "SUCCESS":
             ser.write(SUCCESS)
         elif status[2] == "FAILURE":
+            ser.write(FAILURE)
+        elif status[2] == "ABORT":
             ser.write(FAILURE)
         elif status[2] is None:
             ser.write(BUILDING)

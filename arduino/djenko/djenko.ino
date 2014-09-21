@@ -21,13 +21,13 @@ void loop() {
     incomingByte = Serial.read();
   }
 
-  if (incomingByte == 'b') {
+  if (incomingByte == 'g') {
     green();
   } else if (incomingByte == 'y') {
     yellow();
   } else if (incomingByte == 'r') {
     red();
-  } else if (incomingByte == 'all') {
+  } else if (incomingByte == 'a') {
     all();
   }
 
@@ -35,36 +35,36 @@ void loop() {
 
 void green() {
 
-  digitalWrite(12, HIGH);
-  digitalWrite(11, LOW);
-  digitalWrite(10, LOW);
+  digitalWrite(12, LOW);
+  digitalWrite(11, HIGH);
+  digitalWrite(10, HIGH);
   delay(1000);
 
 }
 
 void yellow() {
 
-  digitalWrite(12, LOW);
-  digitalWrite(11, HIGH);
-  digitalWrite(10, LOW);
-  delay(1000);
-
-}
-
-void red() {
-
-  digitalWrite(12, LOW);
+  digitalWrite(12, HIGH);
   digitalWrite(11, LOW);
   digitalWrite(10, HIGH);
   delay(1000);
 
 }
 
-void all() {
+void red() {
 
   digitalWrite(12, HIGH);
   digitalWrite(11, HIGH);
-  digitalWrite(10, HIGH);
+  digitalWrite(10, LOW);
+  delay(1000);
+
+}
+
+void all() {
+
+  digitalWrite(12, LOW);
+  digitalWrite(11, LOW);
+  digitalWrite(10, LOW);
   delay(1000);
 
 }

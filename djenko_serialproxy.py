@@ -44,7 +44,7 @@ while 1:
             ser.write(SUCCESS)
         elif status[2] == "FAILURE":
             ser.write(FAILURE)
-        elif status[2] == "ABORT":
+        elif status[2] == "ABORTED":
             ser.write(FAILURE)
         elif status[2] is None:
             ser.write(BUILDING)

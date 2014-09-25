@@ -1,15 +1,16 @@
 int incomingByte = 0; // for incoming serial data
 
+int PIN_GREEN = 4;
+int PIN_YELLOW = 3;
+int PIN_RED = 2;
+
 void setup() {
 
-  // Green
-  pinMode(12, OUTPUT);
-  // Yellow
-  pinMode(11, OUTPUT);
-  // Red
-  pinMode(10, OUTPUT);
+  pinMode(PIN_GREEN, OUTPUT);
+  pinMode(PIN_YELLOW, OUTPUT);
+  pinMode(PIN_RED, OUTPUT);
 
-  Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
+  Serial.begin(9600);
 
 }
 
@@ -35,36 +36,36 @@ void loop() {
 
 void green() {
 
-  digitalWrite(12, HIGH);
-  digitalWrite(11, LOW);
-  digitalWrite(10, LOW);
+  digitalWrite(PIN_GREEN, HIGH);
+  digitalWrite(PIN_YELLOW, LOW);
+  digitalWrite(PIN_RED, LOW);
   delay(1000);
 
 }
 
 void yellow() {
 
-  digitalWrite(12, LOW);
-  digitalWrite(11, HIGH);
-  digitalWrite(10, LOW);
+  digitalWrite(PIN_GREEN, LOW);
+  digitalWrite(PIN_YELLOW, HIGH);
+  digitalWrite(PIN_RED, LOW);
   delay(1000);
 
 }
 
 void red() {
 
-  digitalWrite(12, LOW);
-  digitalWrite(11, LOW);
-  digitalWrite(10, HIGH);
+  digitalWrite(PIN_GREEN, LOW);
+  digitalWrite(PIN_YELLOW, LOW);
+  digitalWrite(PIN_RED, HIGH);
   delay(1000);
 
 }
 
 void all() {
 
-  digitalWrite(12, HIGH);
-  digitalWrite(11, HIGH);
-  digitalWrite(10, HIGH);
+  digitalWrite(PIN_GREEN, HIGH);
+  digitalWrite(PIN_YELLOW, HIGH);
+  digitalWrite(PIN_RED, HIGH);
   delay(1000);
 
 }

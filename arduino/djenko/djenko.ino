@@ -30,7 +30,9 @@ void loop() {
 
   if(incoming != incomingByte) {
     
+    Timer1.detachInterrupt();    
     incomingByte = incoming;
+    
     switch(incomingByte) {
     case 'g':
       light_led(led_green);
@@ -52,9 +54,8 @@ void loop() {
 }
 
 void light_led(short led) {
-  Timer1.detachInterrupt();
   for(short current_led = 0; current_led < LEDS_SIZE; current_led++) {
-    led == current_led ? leds[current_led].on() : leds[current_led].off();
+    leds[current_led].setState(led == current_led);
   }
 }
 

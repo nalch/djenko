@@ -1,71 +1,70 @@
-int incomingByte = 0; // for incoming serial data
+#include <LED.h>
+#include <TimerOne.h>
 
-int PIN_GREEN = 4;
-int PIN_YELLOW = 3;
-int PIN_RED = 2;
+byte incoming;
+byte incomingByte = 0; // for incoming serial data
+
+// green, yellow, red
+LED leds[] = {LED(4), LED(3), LED(2)};
+const short LEDS_SIZE = (sizeof(leds)/sizeof(LED));
+const short led_none = -1;
+const short led_green = 0;
+const short led_yellow = 1;
+const short led_red = 2;
 
 void setup() {
-
-  pinMode(PIN_GREEN, OUTPUT);
-  pinMode(PIN_YELLOW, OUTPUT);
-  pinMode(PIN_RED, OUTPUT);
-
-  Serial.begin(9600);
-
+  Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
+  
+  leds[led_green].on();
+  leds[led_yellow].on();
+  leds[led_red].on();
+  
+  delay(3000);
 }
-
-
 
 void loop() {
 
   if (Serial.available() > 0) {
-    incomingByte = Serial.read();
+    incoming = Serial.read();
   }
 
-  if (incomingByte == 'g') {
-    green();
-  } else if (incomingByte == 'y') {
-    yellow();
-  } else if (incomingByte == 'r') {
-    red();
-  } else if (incomingByte == 'a') {
-    all();
+  if(incoming != incomingByte) {
+    
+    incomingByte = incoming;
+    switch(incomingByte) {
+    case 'g':
+      light_led(led_green);
+      break;
+    case 'y':
+      light_led(led_yellow);
+      break;
+    case 'r':
+      light_led(led_red);
+      break;
+    case 'a':
+      light_led(led_none);
+      blink();
+      break;
+    }  
+  
   }
 
 }
 
-void green() {
-
-  digitalWrite(PIN_GREEN, HIGH);
-  digitalWrite(PIN_YELLOW, LOW);
-  digitalWrite(PIN_RED, LOW);
-  delay(1000);
-
+void light_led(short led) {
+  Timer1.detachInterrupt();
+  for(short current_led = 0; current_led < LEDS_SIZE; current_led++) {
+    led == current_led ? leds[current_led].on() : leds[current_led].off();
+  }
 }
 
-void yellow() {
-
-  digitalWrite(PIN_GREEN, LOW);
-  digitalWrite(PIN_YELLOW, HIGH);
-  digitalWrite(PIN_RED, LOW);
-  delay(1000);
-
+void blink_callback() {
+  for(short current_led = 0; current_led < LEDS_SIZE; current_led++) {
+    leds[current_led].toggle();
+  }
 }
 
-void red() {
-
-  digitalWrite(PIN_GREEN, LOW);
-  digitalWrite(PIN_YELLOW, LOW);
-  digitalWrite(PIN_RED, HIGH);
-  delay(1000);
-
-}
-
-void all() {
-
-  digitalWrite(PIN_GREEN, HIGH);
-  digitalWrite(PIN_YELLOW, HIGH);
-  digitalWrite(PIN_RED, HIGH);
-  delay(1000);
-
+void blink() {
+  Timer1.initialize();
+  Timer1.attachInterrupt(blink_callback);
 }

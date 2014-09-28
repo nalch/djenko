@@ -6,17 +6,17 @@ byte incomingByte = 0; // for incoming serial data
 
 // green, yellow, red
 LED leds[] = {LED(4), LED(3), LED(2)};
-const short LEDS_SIZE = (sizeof(leds)/sizeof(LED));
-const short led_none = B000;
-const short led_green = B100;
-const short led_yellow = B010;
-const short led_red = B001;
-const short led_all = B111;
+const byte LEDS_SIZE = (sizeof(leds)/sizeof(LED));
+const byte LED_NONE= B000;
+const byte LED_GREEN = B100;
+const byte LED_YELLOW = B010;
+const byte LED_RED = B001;
+const byte LED_ALL = B111;
 
 void setup() {
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   
-  light_leds(B111);
+  light_leds(LED_ALL);
   
   blink();
   delay(5000);
@@ -37,16 +37,16 @@ void loop() {
       
       switch(incomingByte) {
       case 'g':
-        light_leds(led_green);
+        light_leds(LED_GREEN);
         break;
       case 'y':
-        light_leds(led_yellow);
+        light_leds(LED_YELLOW);
         break;
       case 'r':
-        light_leds(led_red);
+        light_leds(LED_RED);
         break;
       case 'a':
-        light_leds(led_none);
+        light_leds(LED_NONE);
         blink();
         break;
       }
@@ -59,7 +59,7 @@ void loop() {
 
 void light_leds(byte led_mask) {
   byte current_led = 0;
-  for (byte current_bit = 100; current_bit > 0; current_bit >>= 1) { //iterate through bit mask
+  for (byte current_bit = 1 << (LEDS_SIZE - 1); current_bit > 0; current_bit >>= 1) { //iterate through bit mask
     leds[current_led].setState(led_mask & current_bit);  // light led, if bit is set in parameter
     current_led++;
   }

@@ -31,7 +31,7 @@ void loop() {
     if(incoming != incomingByte) {
       
       incomingByte = incoming;
-      if(incoming != 'a') {  // stop the blinking, if another led is to be lit
+      if( (incoming != 'a') && (incoming != 'e') ) {  // stop the blinking, if a led is to be continuously lit
         Timer1.detachInterrupt();
       }
       
@@ -47,6 +47,10 @@ void loop() {
         break;
       case 'a':
         light_leds(LED_NONE);
+        blink();
+        break;
+      case 'e':
+        light_leds(LED_RED);
         blink();
         break;
       }

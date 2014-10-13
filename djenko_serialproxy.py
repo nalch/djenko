@@ -12,25 +12,30 @@ SUCCESS = 'g'
 FAILURE = 'r'
 BUILDING = 'a'
 UNSTABLE = 'y'
+ERROR = 'e'
 
 
 # parse commandline
 parser = argparse.ArgumentParser()
-parser.add_argument('jenkins_job', help="the to be monitored job's name")
-parser.add_argument('-v', '--verbose', help='prints debug messages to the console', action='store_true', default=False)
-parser.add_argument('-u', '--jenkins_url', help='', default='http://localhost:8080/job/')
-parser.add_argument('-i', '--fetch_interval', help='interval to call the jenkins status in seconds', type=int, default=5)
-parser.add_argument('-p', '--serial_port', help="the hardware device's serial port", default='/dev/ttyUSB0')
+parser.add_argument('jenkins_job', help="the job's name")
+parser.add_argument('-v', '--verbose', help='print debug messages to the console', action='store_true', default=False)
+parser.add_argument('-u', '--jenkins_url', help="jenkin's url. Default: http://localhost:8080", default='http://localhost:8080')
+parser.add_argument('-i', '--fetch_interval', help="interval to fetch the job's status in seconds. Default: 30", type=int, default=30)
+parser.add_argument('-p', '--serial_port', help="the hardware device's serial port. Default: /dev/ttyUSB0", default='/dev/ttyUSB0')
 args = parser.parse_args()
 
-print(args)
+if not args.jenkins_url.endswith('/'):
+    args.jenkins_url += '/'
+
+if args.verbose:
+    print(args)
 
 
 def get_status(job_name):
     """ calls the jenkinsapi for the json representation of the job's last build and returns the timestamp and result
     """
     try:
-        jenkins_streams = urllib2.urlopen(args.jenkins_url + job_name + '/lastBuild/api/json')
+        jenkins_streams = urllib2.urlopen(args.jenkins_url + 'job/' + job_name + '/lastBuild/api/json')
     except urllib2.HTTPError as e:
         print 'URL Error: ' + str(e.code)
         print 'job name [' + job_name + '] probably wrong)'
@@ -67,10 +72,13 @@ while 1:
             ser.write(FAILURE)
         elif status[2] == "ABORTED":
             ser.write(FAILURE)
+        elif status[2] == 'ERROR':
+            ser.write(ERROR)
         elif status[2] is None:
             ser.write(BUILDING)
 
     except Exception as e:
+        ser.write(ERROR)
         print e
 
     time.sleep(args.fetch_interval)

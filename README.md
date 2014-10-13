@@ -22,6 +22,11 @@ Available parameters are:
 | --fetch_interval, -i | interval to fetch the job's status in seconds (the old status will be assumed till a new one is fetched) |
 | --serial_port, -p    | the hardware device's serial port                                                                        |
 
+|  Event  |                     Occurences                        |                              Signal                                 |
+|---------|-------------------------------------------------------|---------------------------------------------------------------------|
+| Startup | serialport connection/disconnect, power on the device | all three leds blink three times                                    |
+| Error   | f.e. jenkins status could not be fetched              | an alternating blinking between the red and the yellow/green led    |
+
 An exhaustive example with all available parameters and their default values:
 ```   
 python djenko_serialproxy.py -v -u http://localhost:8080 -i 30 -p /dev/ttyUSB0 mytask
@@ -46,6 +51,7 @@ python djenko_serialproxy.py -v -u http://localhost:8080 -i 30 -p /dev/ttyUSB0 m
 ## Hardware devices
 The main hardware device is the serial forwarder, which receives signals from a serial connection over the USB-Interface.
 It provides a 5 Volt-four pin interface to connect arbitrary peripheral devices to display the jobstatus. The upper pins don't serve any function.
+
 |o X o X|
 |o o o o|
 || | | ||

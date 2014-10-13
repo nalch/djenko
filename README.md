@@ -1,6 +1,7 @@
-djenko
+Djenko Pony
 ======
-
+The Djenko Pony is an indicator for displaying the status of Jenkins jobs as hardwaresignals. It neither requires Django nor a pony, but calls a Jenkins server.
+If you need (or want for that matter) a physical representation for your Jenkins jobs, this provides you with an extensible interface for arbitrary status indicators.
 ![djenko Pony](https://github.com/nalch/djenko/blob/master/images/IMG_20141013_145952.jpg "The djenko pony")
 
 ## Installation
@@ -12,15 +13,16 @@ djenko
 ### Common
 * plug in the serial forwarder hardware device to the computer's usb port
 * start djenko_serialproxy.py with the jenkinsjob's name and optional parameters (see _Configuration_)
-    ```
-    python djenko_serialproxy.py mytask
-    ```
+
+```
+python djenko_serialproxy.py mytask
+```
 
 or
 
-    ```   
-    python djenko_serialproxy.py -v -u http://localhost:8080 -i 30 -p /dev/ttyUSB0 mytask
-    ```
+```   
+python djenko_serialproxy.py -v -u http://localhost:8080 -i 30 -p /dev/ttyUSB0 mytask
+```
 
 ## Configuration
 The configuration is handled through commandline parameters. See the help message for further information.

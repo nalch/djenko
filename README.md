@@ -24,7 +24,7 @@ Available parameters are:
 
 |  Event  |                     Occurences                        |                              Signal                                 |
 |---------|-------------------------------------------------------|---------------------------------------------------------------------|
-| Startup | serialport connection/disconnect, power on the device | all three leds blink three times                                    |
+| --Startup | serialport connection/disconnect, power on the device | all three leds blink three times                                    |
 | Error   | f.e. jenkins status could not be fetched              | an alternating blinking between the red and the yellow/green led    |
 
 An exhaustive example with all available parameters and their default values:

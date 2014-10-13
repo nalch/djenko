@@ -15,9 +15,7 @@ djenko
 The configuration is handled through commandline parameters. See the help message for further information.
 
 Available parameters are:
-|        Parameter         |                                            Description                                                   |
-|--------------------------|----------------------------------------------------------------------------------------------------------|
-asoernideo
+
 |        Parameter         |                                            Description                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------------------|
 | `--verbose`, `-v`        | prints debug messages to the console                                                                     |

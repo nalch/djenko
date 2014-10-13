@@ -7,7 +7,7 @@ djenko
 
 ### Windows-only
 * install [pySerial](http://pythonhosted.org//pyserial/#)
-* if the virtual com port driver is not present, download it from [FTDI Chip](http://www.ftdichip.com/Drivers/VCP.htm) 
+* if the virtual com port driver is not present, download and install it from [FTDI Chip](http://www.ftdichip.com/Drivers/VCP.htm) 
 
 ### Common
 * plug in the serial forwarder hardware device to the computer's usb port
@@ -15,7 +15,9 @@ djenko
     ```
     python djenko_serialproxy.py mytask
     ```
+
 or
+
     ```   
     python djenko_serialproxy.py -v -u http://localhost:8080 -i 30 -p /dev/ttyUSB0 mytask
     ```
@@ -54,6 +56,7 @@ The main hardware device is the serial forwarder, which receives signals from a 
 It provides a 5 Volt-four pin interface to connect arbitrary peripheral devices to display the jobstatus. The upper pins don't serve any function.
 
 ```
+X depicts the closed connections (for orientation purposes)
  --------
 |o X o X|
 |o o o o|

@@ -17,6 +17,9 @@ The configuration is handled through commandline parameters. See the help messag
 Available parameters are:
 |        Parameter         |                                            Description                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------------------|
+asoernideo
+|        Parameter         |                                            Description                                                   |
+|--------------------------|----------------------------------------------------------------------------------------------------------|
 | `--verbose`, `-v`        | prints debug messages to the console                                                                     |
 | `--jenkins_url`, `-u`    | the Jenkins server url                                                                                   |
 | `--fetch_interval`, `-i` | interval to fetch the job's status in seconds (the old status will be assumed till a new one is fetched) |
